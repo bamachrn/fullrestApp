@@ -1,3 +1,3 @@
 module.exports = {
-	customerDetails: require('./CustomerDetails')
+	Customer: require('./Customer')
 };

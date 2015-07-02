@@ -14,20 +14,25 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 
 //CORS Support
 app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  next();
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
 });
 
 //get all the models
 app.models = require('./models/index');
 
-// Connect to MongoDB
-mongoose.connect('mongodb://localhost/restapp');
-mongoose.connection.once('open', function() {
-  console.log('Listening on port 3000...');
-  app.listen(3000);
+//Load the routes
+var routes = require('./routes');
+_.each(routes, function(controller,route){
+    app.use(route,controller(app,route));    
 });
 
 
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost/restapp');
+mongoose.connection.once('open', function() {
+    console.log('Listening on port 3000...');
+    app.listen(3000);
+});
