@@ -8,4 +8,4 @@ var CustomerSchema = new mongoose.Schema({
 });
 
 //Export the model schema
-module.exports = CustomerSchema;
+module.exports = mongoose.model('Customer',CustomerSchema);
