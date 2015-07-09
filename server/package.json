@@ -13,6 +13,8 @@
     "express": "^4.13.0",
     "lodash": "^3.10.0",
     "method-override": "^2.3.3",
-    "sequelize": "^3.3.2"
+    "mysql": "^2.7.0",
+    "sequelize": "^3.3.2",
+    "sequelize-restful": "^0.4.3"
   }
 }

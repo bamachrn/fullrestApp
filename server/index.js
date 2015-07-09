@@ -1,11 +1,20 @@
 var express = require('express');
-var mongoose = require('mongoose');
+//var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var _ = require('lodash');
+var Sequelize = require('sequelize');
+var restful = require('sequelize-restful');
+var sequelize = new Sequelize('mysql://localhost:3306/Service_Station','ssadmin','P@ssw0rd');
 var DEBUG=1;
+
+
 //Create the application
 var app = express();
+
+
+//get all the models
+app.models = require('./models/index');
 
 // Add Middleware necessary for REST API's
 app.use(bodyParser.urlencoded({extended: true}));
@@ -20,8 +29,12 @@ app.use(function(req, res,next) {
     next();
 });
 
-//get all the models
-app.models = require('./models/index');
+//Configure sequelize to work with models
+app.configure(function(){app.use(restful(sequelize,{
+    endpoint:'/',
+    allowed: app.models
+        }));
+  });
 
 //Load the routes
 var routes = require('./routes');
