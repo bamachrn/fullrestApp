@@ -5,7 +5,7 @@ var methodOverride = require('method-override');
 var _ = require('lodash');
 var Sequelize = require('sequelize');
 var restful = require('sequelize-restful');
-var sequelize = new Sequelize('mysql://localhost:3306/Service_Station','ssadmin','P@ssw0rd');
+var sequelize = new Sequelize('Service_Station','ssadmin','P@ssw0rd');
 var DEBUG=1;
 
 
@@ -14,7 +14,7 @@ var app = express();
 
 
 //get all the models
-app.models = require('./models/index');
+app.models = require('./models/index')(sequelize);
 
 // Add Middleware necessary for REST API's
 app.use(bodyParser.urlencoded({extended: true}));
@@ -29,23 +29,15 @@ app.use(function(req, res,next) {
     next();
 });
 
-//Configure sequelize to work with models
-app.configure(function(){app.use(restful(sequelize,{
-    endpoint:'/',
-    allowed: app.models
-        }));
-  });
-
 //Load the routes
 var routes = require('./routes');
 _.each(routes, function(controller,route){
-	app.use(route,controller(app,route));    
+    app.use(route,controller(app,sequelize));    
 });
+//Load the frontends
+app.use(express.static(__dirname+'/public'));
 
-
-// Connect to MongoDB
-mongoose.connect('mongodb://localhost/restapp');
-mongoose.connection.once('open', function() {
-    console.log('Listening on port 3000...');
-    app.listen(3000);
+//Start the server
+app.listen(3000,function(err){
+    console.log("Server is listening on port 3000...");
 });

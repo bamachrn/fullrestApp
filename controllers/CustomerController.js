@@ -4,7 +4,7 @@ module.exports = function(app,uri)
 {
     router.route('/')
         .get(function(req,res){
-            app.models.Customer.find(function(err,customers){
+            app.models.Customers.findAll().then(function(err,customers){
                 if(err)
                     res.send(err);
                 else

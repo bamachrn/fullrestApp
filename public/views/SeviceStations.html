@@ -1,0 +1,18 @@
+<html ng-app="ssApp">
+<body>
+<div ng-controller="servicestationsCtrl">
+<table class="table table-striped">
+    <thead>
+        <th>Name</th>
+        <th>Address</th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="service_station in service_stations">
+            <td>{{service_station.name}}</td>
+            <td>{{service_station.address}}</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>

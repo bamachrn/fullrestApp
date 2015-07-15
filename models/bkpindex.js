@@ -11,6 +11,7 @@ var sequelize = new Sequelize(
 //Load models
 var models = [
       'Customer',
+      'ServiceStation'
          ];
 
 models.forEach(function(model) {
