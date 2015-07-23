@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
+var jsonQuery = require('json-query');
 
 module.exports = function (app,sequelize) 
 {
@@ -36,7 +38,20 @@ module.exports = function (app,sequelize)
         })
         .get(function (req, res) {
             app.models.ServiceStations.findAll().then(function (service_stations) {
-                res.json(service_stations);
+                              
+                var areas = JSON.parse(fs.readFile(__dirname+'/areas.json','utf8',function(data,err){
+                        if(err) console.log(err);
+                        console.log(data);
+                    }));
+                
+               /* 
+                for(var i=0; i < areas.length; i++){
+                     jsonQuery(areas[id=service_stations.area_id], function(area){
+                        service_stations.area=area;
+                    }); 
+                }*/ 
+                //res.json(service_stations);
+                res.json(areas);
             })
             .catch(function(err){
                 res.send(err);

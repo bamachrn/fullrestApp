@@ -20,10 +20,10 @@ CREATE TABLE `service_stations` (
   `ss_type_code` varchar(20) NOT NULL,
   `pick_drop_km` varchar(50) DEFAULT NULL,
   `facilities` text COMMENT 'Facilities & Services of Service Station ',
-  `registertime` datetime NOT NULL,
+  `registertime` timestamp,
   `verify_time` timestamp,
   `approve_time` timestamp,
   `updatedAt` timestamp,
   `createdAt` timestamp,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
