@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var jsonQuery = require('json-query');
+var extend = require('node.extend');
 
 module.exports = function (app,sequelize) 
 {
@@ -38,25 +39,34 @@ module.exports = function (app,sequelize)
         })
         .get(function (req, res) {
             app.models.ServiceStations.findAll().then(function (service_stations) {
-                              
-                var areas = JSON.parse(fs.readFile(__dirname+'/areas.json','utf8',function(data,err){
-                        if(err) console.log(err);
-                        console.log(data);
-                    }));
-                
-               /* 
-                for(var i=0; i < areas.length; i++){
-                     jsonQuery(areas[id=service_stations.area_id], function(area){
-                        service_stations.area=area;
-                    }); 
-                }*/ 
-                //res.json(service_stations);
-                res.json(areas);
+               //getting the service stations json object and removing the sequelize decripition details
+               var ss_string = JSON.parse(JSON.stringify(service_stations));
+
+               //getting area details from server local file system
+               var areadata=JSON.parse(fs.readFileSync(__dirname+'/areas.json','utf-8'));
+               
+               //updating service stations json object for adding the details from id (like area details for area_id)
+               for(var i=0;i<service_stations.length;i++)
+               {   
+                    //adding area details for the specified area_id
+                    ss_string[i].area = getItemByID(areadata,service_stations[i].area_id);
+                }
+              
+                //send the modified json obejct in response
+                res.json(ss_string);
             })
             .catch(function(err){
                 res.send(err);
             });
        });
+    function getItemByID(searchObject,search_id)
+    {
+       return jsonQuery('areas[id='+search_id+']',{
+            //here data means the object where query has to be run.
+            //here areas id is being queried in areadata json object
+            data: searchObject
+        }).value;
+    }
     router.route('/:service_station_id')
         .get(function(req,res){
             app.models.ServiceStations.find({

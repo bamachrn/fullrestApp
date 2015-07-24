@@ -7,6 +7,10 @@ ssControllers.controller('ssListCtrl',
             //console.log("got the data for service stations")
             $scope.service_stations = service_stations; 
         });
+        $scope.setSelected = function(idSelected)
+        {       
+            $scope.idSelected = idSelected;
+        }
     }]);
 ssControllers.controller('ssDetailsCtrl',
     ['$scope','$http','$routeParams',

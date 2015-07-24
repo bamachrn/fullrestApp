@@ -1,8 +1,9 @@
 <div>
-<table class="table table-striped">
+Search: <input ng-model="query">
+<table st-table="service_stations" class="table table-striped">
     <thead>
-        <th>Name</th>
-        <th>Address</th>
+        <th st-sort="name">Name</th>
+        <th st-sort="address">Address</th>
         <th>Contact No</th>
         <th>Email ID</th>
         <th>Description</th>
@@ -11,7 +12,7 @@
         <th>Area</th>
     </thead>
     <tbody>
-        <tr ng-repeat="service_station in service_stations">
+        <tr ng-repeat="service_station in service_stations| filter:query" ng-click="setSelected(service_station.id)" ng-class="{selected: service_station.id === idSelected}">
             <td>{{service_station.name}}</td>
             <td>{{service_station.address}}</td>
             <td>{{service_station.contact_no}}</td>
@@ -20,7 +21,8 @@
             <td>{{service_station.siteaddress}}</td>
             <td>{{service_station.logopath}}</td>
             <td>{{service_station.area_id}}</td>
-            <td>{{service_station.brand_id}}</td>
+            <td>{{service_station.area.name}}</td>
+            <!--td>{{service_station.brand_id}}</td>
             <td>{{service_station.weekly_off_code}}</td>
             <td>{{service_station.ss_timing}}</td>
             <td>{{service_station.ss_associate_id}}</td>
@@ -28,11 +30,12 @@
             <td>{{service_station.about_team}}</td>
             <td>{{service_station.features_list}}</td>
             <td>{{service_station.latitude}}</td>
-            <td>{{service_station.updatedAt}}</td>
+            <td>{{service_station.updatedAt}}</td-->
 
         </tr>
     </tbody>
 </table>
 </div>
-</body>
-</html>
+<div>
+    
+</div>
