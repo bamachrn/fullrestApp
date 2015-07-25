@@ -12,7 +12,7 @@ Search: <input ng-model="query">
         <th>Area</th>
     </thead>
     <tbody>
-        <tr ng-repeat="service_station in service_stations| filter:query" ng-click="setSelected(service_station.id)" ng-class="{selected: service_station.id === idSelected}">
+        <tr ng-repeat-start="service_station in service_stations| filter:query"  ng-click="setSelected(service_station.id)" ng-class="{selected: service_station.id === idSelected}">
             <td>{{service_station.name}}</td>
             <td>{{service_station.address}}</td>
             <td>{{service_station.contact_no}}</td>
@@ -20,7 +20,6 @@ Search: <input ng-model="query">
             <td>{{service_station.description}}</td>
             <td>{{service_station.siteaddress}}</td>
             <td>{{service_station.logopath}}</td>
-            <td>{{service_station.area_id}}</td>
             <td>{{service_station.area.name}}</td>
             <!--td>{{service_station.brand_id}}</td>
             <td>{{service_station.weekly_off_code}}</td>
@@ -33,9 +32,9 @@ Search: <input ng-model="query">
             <td>{{service_station.updatedAt}}</td-->
 
         </tr>
+        <tr ng-if="service_station.id===idSelected" ng-repeat-end>
+            <td colspan="8">{{service_station.about_workshop}}</td>
+        </tr>
     </tbody>
 </table>
-</div>
-<div>
-    
 </div>

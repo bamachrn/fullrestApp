@@ -10,6 +10,10 @@ ssControllers.controller('ssListCtrl',
         $scope.setSelected = function(idSelected)
         {       
             $scope.idSelected = idSelected;
+            /*if($scope.idSelected)
+                $scope.idSelected = false;
+            else
+                $scope.idSelected = true;*/
         }
     }]);
 ssControllers.controller('ssDetailsCtrl',
