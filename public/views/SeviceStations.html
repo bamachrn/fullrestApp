@@ -15,11 +15,11 @@ Search: <input ng-model="query">
         <tr ng-repeat-start="service_station in service_stations| filter:query"  ng-click="setSelected(service_station.id)" ng-class="{selected: service_station.id === idSelected}">
             <td>{{service_station.name}}</td>
             <td>{{service_station.address}}</td>
-            <td>{{service_station.contact_no}}</td>
+            <td>{{service_station.contact_ph}}</td>
             <td>{{service_station.email}}</td>
             <td>{{service_station.description}}</td>
-            <td>{{service_station.siteaddress}}</td>
-            <td>{{service_station.logopath}}</td>
+            <td>{{service_station.website}}</td>
+            <td>{{service_station.logo_path}}</td>
             <td>{{service_station.area.name}}</td>
             <!--td>{{service_station.brand_id}}</td>
             <td>{{service_station.weekly_off_code}}</td>

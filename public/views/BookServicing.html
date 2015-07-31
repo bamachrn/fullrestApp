@@ -1,0 +1,17 @@
+<div>
+    <form novalidate>
+        First Name <input type="text" ng-model="book_servicing.first_name"/><br/>
+        Last Name <input type="text" ng-model="book_servicing.last_name"/><br/>
+        Mobile <input type="text" ng-model="book_servicing.mobile"/><br/>
+        Email <input type="text" ng-model="book_servicing.email"/><br/>
+        Address <input type="text" ng-model="book_servicing.address"/><br/>
+        Area <input type="text" ng-model="book_servicing.area_id"/><br/>
+        Pincode <input type="text" ng-model="book_servicing.pincode"/><br/>
+        Bike Name<input type="text" ng-model="book_servicing.bike_name"/><br/>
+        Service Station<input type="text" ng-model="book_servicing.ss_id"/><br/>
+        Free Servicing<input type="radio" ng-model="book_servicing.is_free_service"/>free
+        <input type="radio" ng-model="book_servicing.is_free_service"/>paid<br/>
+        <input type="button" ng-click="reset()" value="Clear All"/>
+        <input type="submit" ng-click="proceed(book_servicing)" value="Proceed To Book"/>
+    </form>
+</div>

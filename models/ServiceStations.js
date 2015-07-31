@@ -2,27 +2,31 @@ var Sequelize = require('sequelize');
  
 module.exports = function (sequelize) {
     var service_stations = sequelize.define("service_stations", {
+        ss_id:{
+            type: Sequelize.STRING,
+            primaryKey: true,
+            autoIncrement: true
+        },
         name: Sequelize.STRING,
         address: Sequelize.STRING,
-        contact_no: Sequelize.STRING,
+        contact_ph: Sequelize.STRING,
+        mobile: Sequelize.STRING,
         email: Sequelize.STRING,
         description: Sequelize.STRING,
-        siteaddress: Sequelize.STRING,
-        logopath: Sequelize.STRING,
+        website: Sequelize.STRING,
+        logo_path: Sequelize.STRING,
         area_id: Sequelize.STRING,
         brand_id: Sequelize.STRING,
-        weekly_off_code: Sequelize.STRING,
-        ss_timing: Sequelize.STRING,
-        ss_associate_id: Sequelize.STRING,
+        weekly_off_id: Sequelize.STRING,
+        timing: Sequelize.STRING,
         about_workshop: Sequelize.TEXT,
         about_team: Sequelize.TEXT,
-        features_list: Sequelize.TEXT,
+        facilities: Sequelize.TEXT,
+        ss_type_id: Sequelize.STRING,
+        pick_drop_km: Sequelize.STRING,
         latitude: Sequelize.FLOAT,
         longitude: Sequelize.FLOAT,
-        ss_type_code: Sequelize.STRING,
-        pick_drop_km: Sequelize.INTEGER,
-        facilities: Sequelize.TEXT,
-        registertime: Sequelize.TIME,
+        register_time: Sequelize.TIME,
         verify_time: Sequelize.TIME,
         approve_time: Sequelize.TIME
     });
