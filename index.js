@@ -1,13 +1,19 @@
 var express = require('express');
-//var mongoose = require('mongoose');
+var config = require('./config/database.json')["dev"];
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var _ = require('lodash');
 var Sequelize = require('sequelize');
 var restful = require('sequelize-restful');
-var sequelize = new Sequelize('Service_Station','ssadmin','P@ssw0rd');
 var DEBUG=1;
-
+var sequelize = new Sequelize(
+        config.database,
+        config.user,
+        config.password,
+        {
+            port: config.port,
+            host: config.server,
+        });
 
 //Create the application
 var app = express();
