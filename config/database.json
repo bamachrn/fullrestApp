@@ -1,0 +1,10 @@
+{
+      "dev": {
+         "server": "192.168.0.2",
+         "driver": "mysql",
+         "user": "ssadmin",
+         "port": "3306",
+         "database": "Service_Station",
+         "password": "P@ssw0rd"
+      }
+}
