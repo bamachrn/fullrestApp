@@ -2,7 +2,7 @@ var ssApp = angular.module('ssApp',[
     'ngRoute',
     'smart-table',
     'ssControllers',
-    'bsController'
+    'bsControllers'
 ]);
 ssApp.config(['$locationProvider','$routeProvider','$httpProvider',
     function($locationProvider,$routeProvider,$httpProvider) {

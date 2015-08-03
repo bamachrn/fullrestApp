@@ -2,25 +2,14 @@ var bsControllers = angular.module('bsControllers',[]);
 bsControllers.controller('bsInputCtrl',
     ['$scope','$http',
     function($scope,$http){
-              
-        $http.get('/ServiceBookings').success(function(service_bookings){
-            //console.log("got the data for service stations")
-            $scope.service_bookings = service_bookings; 
-        });
-        $scope.setSelected = function(idSelected)
-        {       
-            $scope.idSelected = idSelected;
-            /*if($scope.idSelected)
-                $scope.idSelected = false;
-            else
-                $scope.idSelected = true;*/
+        $scope.proceed = function(book_servicing)
+        {
+            $http.post('/ServiceBookings',book_servicing).success(function(){
+                console.log("data insterted"+$scope.service_booking);
+            })
+            .error(function(){
+                console.log("could not insert data"+$scope.service_booking);
+            });
+
         }
-        $scope.
-    }]);
-ssControllers.controller('ssDetailsCtrl',
-    ['$scope','$http','$routeParams',
-    function($scope,$http,$routeParams){
-        $http.get('/ServiceStations/'+$routeParams.ss_id).success(function(service_station){
-            $scope.service_station=service_station;
-        })
     }]);

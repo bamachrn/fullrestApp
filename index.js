@@ -12,7 +12,7 @@ var sequelize = new Sequelize(
         config.password,
         {
             port: config.port,
-            host: config.server,
+            host: config.server
         });
 
 //Create the application
