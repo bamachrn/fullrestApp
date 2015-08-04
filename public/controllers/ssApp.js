@@ -1,6 +1,7 @@
 var ssApp = angular.module('ssApp',[
     'ngRoute',
     'smart-table',
+    'ui.bootstrap',
     'ssControllers',
     'bsControllers'
 ]);

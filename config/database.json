@@ -1,6 +1,6 @@
 {
       "dev": {
-         "server": "192.168.0.2",
+         "server": "192.168.0.35",
          "driver": "mysql",
          "user": "ssadmin",
          "port": "3306",

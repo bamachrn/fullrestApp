@@ -9,11 +9,12 @@ var DEBUG=1;
 var sequelize = new Sequelize(
         config.database,
         config.user,
-        config.password,
-        {
-            port: config.port,
-            host: config.server
-        });
+        config.password//,
+        //{
+        //    port: config.port,
+        //    host: config.server
+        //}
+        );
 
 //Create the application
 var app = express();

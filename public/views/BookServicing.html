@@ -4,13 +4,22 @@
         Last Name <input type="text" ng-model="book_servicing.last_name"/><br/>
         Mobile <input type="text" ng-model="book_servicing.mobile"/><br/>
         Email <input type="text" ng-model="book_servicing.email"/><br/>
-        Address <input type="text" ng-model="book_servicing.address"/><br/>
+        Pick up Address: <input type="area" ng-model="book_servicing.address"/><br/>
         Area <input type="text" ng-model="book_servicing.area_id"/><br/>
         Pincode <input type="text" ng-model="book_servicing.pincode"/><br/>
         Bike Name<input type="text" ng-model="book_servicing.bike_name"/><br/>
-        Service Station<input type="text" ng-model="book_servicing.ss_id"/><br/>
-        Free Servicing<input type="radio" ng-model="book_servicing.is_free_service"/>free
-        <input type="radio" ng-model="book_servicing.is_free_service"/>paid<br/>
+        Bike Number<input type="text" ng-model="book_servicing.bike_number"/><br/>
+        Bike Number<input type="text" ng-model="book_servicing.bike_number"/><br/>
+        Service Station<select ng-options="service_station.name for service_station in service_stations" ng-model="book_servicing.ss_id" ng-change="selectedSS(service_station)"/><br/>
+            Preferred Servicing Date:<br/>
+        Free Servicing:
+        <div ng-controller="buttonsCtrl" class="btn-group">
+            <label class="btn btn-primary" ng-model="radioModel" btn-radio="'Left'">Left</label>
+            <label class="btn btn-primary" ng-model="radioModel" btn-radio="'Middle'">Middle</label>
+        </div>
+        <!--input type="radio" ng-model="book_servicing.is_free_service" value=1 name="free_service" />free
+        <input type="radio" ng-model="book_servicing.is_free_service" value=0 name="free_service"/>paid<br/-->
+        Other Problems: <input type="area" ng-model="book_servicing.customer_notes"/><br/>
         <input type="button" ng-click="reset()" value="Clear All"/>
         <input type="submit" ng-click="proceed(book_servicing)" value="Proceed To Book"/>
     </form>
