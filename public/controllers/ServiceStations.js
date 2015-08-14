@@ -1,19 +1,42 @@
 var ssControllers = angular.module('ssControllers',[]);
 ssControllers.controller('ssListCtrl',
-    ['$scope','$http',
-    function($scope,$http){
-              
-        $http.get('/ServiceStations').success(function(service_stations){
-            //console.log("got the data for service stations")
-            $scope.service_stations = service_stations; 
+    ['$scope','$http','locationService',
+    function($scope,$http,locationService){
+       
+       $http.get('/ServiceStations').success(function(service_stations){
+            $scope.service_stations = service_stations;
+            var current_location={};
+            locationService.currentLocation(current_location).then(function(current_location)
+            {
+                console.log(current_location.coords.latitude);
+            });
         });
+        
+/*
+        var currentLocation = function(){
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position){
+                    return position;
+                });
+            }
+        }
+        var updateLocation = function(service_stations)
+        {
+            var updated_service_stations = {};
+            angular.forEach(service_stations,function(service_station){
+                    var ssLocation =
+                    {
+                        'latitude':service_station.latitude,
+                        'longitude':service_station.logitude
+                    };
+                    service_station.distance = locationService.getDistance(currentLocation().coords,
+                                                ssLocation);
+            });
+        }
+  */
         $scope.setSelected = function(idSelected)
         {       
             $scope.idSelected = idSelected;
-            /*if($scope.idSelected)
-                $scope.idSelected = false;
-            else
-                $scope.idSelected = true;*/
         }
     }]);
 ssControllers.controller('ssDetailsCtrl',

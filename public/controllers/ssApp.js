@@ -3,18 +3,19 @@ var ssApp = angular.module('ssApp',[
     'smart-table',
     'ui.bootstrap',
     'ssControllers',
-    'bsControllers'
+    'bsControllers',
+    'locationOperations'
 ]);
 ssApp.config(['$locationProvider','$routeProvider','$httpProvider',
     function($locationProvider,$routeProvider,$httpProvider) {
         //$locationProvider.html5Mode(true);
         $routeProvider.
-            when('/ServiceStations', {
-                templateUrl: 'views/SeviceStations.html',
+            when('/SearchServiceStations', {
+                templateUrl: 'views/SearchServiceStations.html',
                 controller: 'ssListCtrl'
             }).
-            when('/ServiceStations/:ss_id', {
-                templateUrl: 'views/SeviceStationDetails.html',
+            when('/ServiceStationDetails/:ss_id', {
+                templateUrl: 'views/ServiceStationDetails.html',
                 controller: 'ssDetailsCtrl'
             }).
             when('/BookService',{
@@ -22,7 +23,7 @@ ssApp.config(['$locationProvider','$routeProvider','$httpProvider',
                 controller: 'bsInputCtrl'
             }).
             otherwise({
-                redirectTo: '/ServiceStations'
+                redirectTo: '/SearchServiceStations'
             });
         $httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
         $httpProvider.defaults.transformRequest.unshift(function (data, headersGetter) {
