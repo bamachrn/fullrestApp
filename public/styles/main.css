@@ -180,7 +180,9 @@ table {
   border-spacing: 0;
   border-collapse: collapse;
 }
-td,
+td {
+  padding: 0;
+}
 th {
   padding: 0;
 }
@@ -761,11 +763,20 @@ pre code {
   margin-left: auto;
 }
 .row {
-  margin-right: -15px;
-  margin-left: -15px;
+  margin-right: 0px;
+  margin-left: 0px;
+  border: 1px solid #0753ea; 
 }
 .row:nth-of-type(odd) {
-    background: #e0e0e0;
+    background: #63e6fa;
+}
+.border-div {
+    border-radius: 10px 10px 10px 10px;
+    border: 1px solid #2e9afe;
+    background: #fafafa;
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 5px;
 }
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
   position: relative;
@@ -1420,10 +1431,10 @@ th {
 .table > thead > tr > td,
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
-  padding: 8px;
+  padding: 0px;
   line-height: 1.42857143;
   vertical-align: top;
-  border-top: 1px solid #ddd;
+  border-top: 0px solid #ddd;
 }
 .table > thead > tr > th {
   vertical-align: bottom;
@@ -1452,7 +1463,7 @@ th {
 .table-condensed > thead > tr > td,
 .table-condensed > tbody > tr > td,
 .table-condensed > tfoot > tr > td {
-  padding: 5px;
+  padding: 0px;
 }
 .table-bordered {
   border: 1px solid #ddd;
@@ -1596,7 +1607,7 @@ table th[class*="col-"] {
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: -ms-autohiding-scrollbar;
-    border: 1px solid #ddd;
+    border: 0px solid #ddd;
   }
   .table-responsive > .table {
     margin-bottom: 0;

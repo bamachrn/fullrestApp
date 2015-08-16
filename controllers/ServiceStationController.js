@@ -69,7 +69,7 @@ module.exports = function (app,sequelize)
     router.route('/:service_station_id')
         .get(function(req,res){
             app.models.ServiceStations.find({
-                where:{id:req.params.service_station_id}
+                where:{ss_id:req.params.service_station_id}
                 })
                 .then(function(service_station){
                     res.json(service_station);

@@ -22,6 +22,10 @@ ssApp.config(['$locationProvider','$routeProvider','$httpProvider',
                 templateUrl: 'views/BookServicing.html',
                 controller: 'bsInputCtrl'
             }).
+            when('/BookService/:ss_id',{
+                templateUrl: 'views/BookServicing.html',
+                controller: 'bsInputCtrl'
+            }).
             otherwise({
                 redirectTo: '/SearchServiceStations'
             });

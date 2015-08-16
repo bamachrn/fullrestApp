@@ -1,44 +1,43 @@
 <div>
 Search: <input ng-model="query">
-    <div ng-repeat-start="service_station in service_stations| filter:query" class="row container" display:block>
+    <div ng-repeat="service_station in service_stations| filter:query" class="row container" display:block>
         <table class="table table-responsive table-condensed">
             <tbody>
             <tr>
-                <!--td>{{position.coords.latitude}}</td-->
                 <td>{{service_station.name}}</td>
-                <td rowspan=3>{{service_station.distance}}</td>
-                <td rowspan=3 class="vert-align"><input type="button" value="book service" class="btn btn-primary"/></td>
+                <td rowspan=3 class="vert-align">{{service_station.distance}}KM</td>
+                <td rowspan=3 class="vert-align"><input type="button" value="book service" class="btn btn-primary" ng-click="gotoBookService(service_station.ss_id)"/></td>
                 <td rowspan=3>{{service_station.overall_rating}}</td>
                 <td rowspan=3 class="vert-align"><input type="checkbox" /></td>
             </tr>
             <tr>
-                <td>{{service_station.address}}</td>
+                <td>{{service_station.address}} : {{service_station.area.pin}}</td>
             </tr>
             <tr>
                 <td><button type="button" class='btn btn-link' ng-show="service_station.ss_id!=idSelected" ng-click="setSelected(service_station.ss_id)">+show more</button>
-                <button type="button" class='btn btn-link' ng-show="service_station.ss_id===idSelected" ng-click="setSelected(null)">-hide</button></td>
+                <button type="button" class='btn btn-link' ng-show="service_station.ss_id===idSelected" ng-click="setSelected(null)">-show less</button></td>
             </tr>
             </tbody>
         </table>
-    </div>
-    <div ng-show="service_station.ss_id===idSelected" class="animate-show" ng-repeat-end>
-            <table>
-                <tbody>
-                <tr>
-                    <td>{{service_station.contact_ph}}</td>
-                    <td>{{service_station.email}}</td>
-                </tr>
-                <tr>
-                    <td>{{service_station.description}}</td>
-                    <td>{{service_station.website}}</td>
-                </tr>
-                <tr>
-                    <td>{{service_station.logo_path}}</td>
-                    <td>{{service_station.area.name}}</td>
-                </tr>
-                </tbody>
-            </table>
+        <div ng-show="service_station.ss_id===idSelected" class="animate-show border-div">
+                <div>
+                        Vehicle Serviced: {{service_station.brand_id}}
+                        {{service_station.description}}
+                        {{service_station.website}}
+                        {{service_station.logo_path}}
+                        {{service_station.area.name}}
+                </div>
+                <div>
+                        Contacts
+                        {{service_station.contact_ph}}
+                        {{service_station.mobile}}
+                        {{service_station.email}}
+                </div>
+                <div>
+                    {{service_station.overall_rating}}
+                </div>
         </div>
+    </div>
             <!--td>{{service_station.brand_id}}</td>
             <td>{{service_station.weekly_off_code}}</td>
             <td>{{service_station.ss_timing}}</td>
