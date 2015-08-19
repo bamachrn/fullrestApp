@@ -1,4 +1,9 @@
 <div>
+    <div>
+        
+    </div>
+
+    
     <form novalidate>
         <div class="mainpage">
         First Name <input type="text" ng-model="book_servicing.first_name"/><br/>
@@ -10,8 +15,7 @@
         Pincode <input type="text" ng-model="book_servicing.pincode"/><br/>
         Bike Name<input type="text" ng-model="book_servicing.bike_name"/><br/>
         Bike Number<input type="text" ng-model="book_servicing.bike_number"/><br/>
-        Bike Number<input type="text" ng-model="book_servicing.bike_number"/><br/>
-        Service Station<select ng-options="service_station.name for service_station in service_stations" ng-model="book_servicing.service_station" ng-change="selectedSS(book_servicing.service_station)"/><br/>
+        Service Station<select ng-options="service_station.name for service_station in service_stations" ng-model="booking_ss" ng-change="selectedSS(book_servicing.service_station)" /><br/>
             Preferred Servicing Date:
             <div class="row" ng-controller="datePickerCtrl">
                 <div class="col-md-6">
