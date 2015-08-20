@@ -1,26 +1,25 @@
 <div>
-    <div>
-        
-    </div>
-
-    
     <form novalidate>
-        <div class="mainpage">
-        First Name <input type="text" ng-model="book_servicing.first_name"/><br/>
-        Last Name <input type="text" ng-model="book_servicing.last_name"/><br/>
-        Mobile <input type="text" ng-model="book_servicing.mobile"/><br/>
-        Email <input type="text" ng-model="book_servicing.email"/><br/>
-        Pick up Address: <input type="area" ng-model="book_servicing.address"/><br/>
-        Area <input type="text" ng-model="book_servicing.area_id"/><br/>
-        Pincode <input type="text" ng-model="book_servicing.pincode"/><br/>
-        Bike Name<input type="text" ng-model="book_servicing.bike_name"/><br/>
-        Bike Number<input type="text" ng-model="book_servicing.bike_number"/><br/>
-        Service Station<select ng-options="service_station.name for service_station in service_stations" ng-model="booking_ss" ng-change="selectedSS(book_servicing.service_station)" /><br/>
+        <div ng-show="isMobileEmail" class="animate-show">
+            Mobile <input type="text" ng-model="book_servicing.mobile"/><br/>
+            Email <input type="text" ng-model="book_servicing.email"/><br/>
+            <input type="button" ng-click="searchMobileEmail()" value="Procced to Servicing details"/><br>
+        </div>
+ 
+        <div class="animate-show" ng-show="isBikeDetails">
+            Select Bike: 
+            <div ng-repeate="bike in bikes">
+                <input type="button" ng-click="selectBike(bike.bike_id)" value="bike.number"/> 
+            </div>
+            <br/>
+            Bike Name<input type="text" ng-model="book_servicing.bike_name"/><br/>
+            Bike Number<input type="text" ng-model="book_servicing.bike_number"/><br/>
+            Service Station<select ng-options="service_station.name for service_station in service_stations" ng-model="booking_ss" ng-change="selectedSS(book_servicing.service_station)" /><br/>
             Preferred Servicing Date:
             <div class="row" ng-controller="datePickerCtrl">
                 <div class="col-md-6">
                     <p class="input-group">
-                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="book_servicing.date" is-open="opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
@@ -28,16 +27,43 @@
                 </div>
             </div>
             <br/>
-        Free Servicing: 
-        <div ng-controller="buttonsCtrl" class="btn-group">
-            <label class="btn btn-primary" ng-model="radioModel" btn-radio="'1'">Free</label>
-            <label class="btn btn-primary" ng-model="radioModel" btn-radio="'0'">Paid</label>
-        </div><br/>
-        <!--input type="radio" ng-model="book_servicing.is_free_service" value=1 name="free_service" />free
-        <input type="radio" ng-model="book_servicing.is_free_service" value=0 name="free_service"/>paid<br/-->
-        Other Problems: <input type="area" ng-model="book_servicing.customer_notes"/><br/>
-        <input type="button" ng-click="reset()" value="Clear All"/>
-        <input type="submit" ng-click="proceed(book_servicing)" value="Proceed To Book"/>
+            Free Servicing: 
+                <div ng-controller="buttonsCtrl" class="btn-group">
+                    <label class="btn btn-primary" ng-model="radioModel" btn-radio="'1'">Free</label>
+                    <label class="btn btn-primary" ng-model="radioModel" btn-radio="'0'">Paid</label>
+                </div><br/>
+            Other Problems: <input type="area" ng-model="book_servicing.customer_notes"/><br/>
+            <input type="button" ng-click="enterBikeDetails()" value="Procced to Address details"/><br>
+
+        </div>
+        <div class="animate-show" ng-show="isAddressDetails">
+            First Name <input type="text" ng-model="book_servicing.first_name"/><br/>
+            Last Name <input type="text" ng-model="book_servicing.last_name"/><br/>
+            Pick up Address: <input type="area" ng-model="book_servicing.address"/><br/>
+            Area <input type="text" ng-model="book_servicing.area_id"/><br/>
+            Pincode <input type="text" ng-model="book_servicing.pincode"/><br/>
+            <input type="button" ng-click="backToBikeDetails()" value="Back to Bike Details"/>
+            <input type="button" ng-click="enterAddress()" value="View Booking Summary"/>
+        </div>
+        <div class="animate-show" ng-show="isSummary">
+            Address Details:<br/>
+                Name: {{book_servicing.first_name}} {{book_servicing.last_name}} <br/>
+                Mobile: {{book_servicing.mobile}} <br/>
+                Email: {{book_servicing.email}} <br/>
+                Pick up Address: {{book_servicing.address}}<br/>
+                Pincode: {{book_servicing.pincode}}<br/>
+
+            Servicing Details:<br/>
+                Bike Name: {{book_servicing.bike_name}}<br/>
+                Bike Number: {{book_servicing.bike_number}}<br/>
+                Service Station: {{booking_ss.name}}<br/>
+                Preferred Servicing Date: {{book_servicing.date}}<br/>
+                Servicing Mode: {{book_servicing.free_mode}}<br/>
+                Other Problems: {{book_servicing.customer_notes}} <br/>
+
+
+            <input type="button" ng-click="backToAddress()" value="Back to Address Details"/>
+            <input type="submit" ng-click="bookService(book_servicing)" value="Book Servicing"/>
         <div>
     </form>
 </div>
