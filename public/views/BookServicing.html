@@ -3,7 +3,17 @@
         <div ng-show="isMobileEmail" class="animate-show">
             Mobile <input type="text" ng-model="book_servicing.mobile"/><br/>
             Email <input type="text" ng-model="book_servicing.email"/><br/>
-            <input type="button" ng-click="searchMobileEmail()" value="Procced to Servicing details"/><br>
+            <input type="button" ng-click="searchMobileEmail()" value="Check User" ng-disabled="isSearchEmail"/><br>
+            <div ng-show="isExistingUser" class="animate-show">
+                Enter password: <input type="password" ng-model="exist_user.password"><br/>
+                <input type="button" ng-click="loginAutoFill()" value="Auto fill Details"/><br>
+                <input type="button" ng-click="proceedNoFill()" value="Proceed with no fill"/><br>
+            </div>
+            <div ng-show="isNewUser" class="animate-show">
+                Set password: <input type="password" ng-model="new_user.password"/><br/>
+                Confirm password: <input type="password" ng-model="new_user.cnf_password"><br/>
+                <input type="button" ng-click="createUserNoFill()" value="Procced to Servicing details"/><br>
+            </div>
         </div>
  
         <div class="animate-show" ng-show="isBikeDetails">
@@ -19,7 +29,7 @@
             <div class="row" ng-controller="datePickerCtrl">
                 <div class="col-md-6">
                     <p class="input-group">
-                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="book_servicing.date" is-open="opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="book_servicing.booking_date" is-open="opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
@@ -29,12 +39,18 @@
             <br/>
             Free Servicing: 
                 <div ng-controller="buttonsCtrl" class="btn-group">
-                    <label class="btn btn-primary" ng-model="radioModel" btn-radio="'1'">Free</label>
-                    <label class="btn btn-primary" ng-model="radioModel" btn-radio="'0'">Paid</label>
+                    <label class="btn btn-primary" ng-model="book_servicing.is_free_service" btn-radio="'1'">Free</label>
+                    <label class="btn btn-primary" ng-model="book_servicing.is_free_service" btn-radio="'0'">Paid</label>
+                </div><br/>
+            Regular Servicing?: 
+                <div ng-controller="buttonsCtrl" class="btn-group">
+                    <label class="btn btn-primary" ng-model="book_servicing.is_regular_service" btn-radio="'1'">Yes</label>
+                    <label class="btn btn-primary" ng-model="book_servicing.is_regular_service" btn-radio="'0'">No</label>
                 </div><br/>
             Other Problems: <input type="area" ng-model="book_servicing.customer_notes"/><br/>
-            <input type="button" ng-click="enterBikeDetails()" value="Procced to Address details"/><br>
+            Coupon ID: <input type="text" ng-model="book_servicing.coupon_id" /><br/>
 
+            <input type="button" ng-click="enterBikeDetails()" value="Procced to Address details"/><br>
         </div>
         <div class="animate-show" ng-show="isAddressDetails">
             First Name <input type="text" ng-model="book_servicing.first_name"/><br/>
@@ -57,8 +73,9 @@
                 Bike Name: {{book_servicing.bike_name}}<br/>
                 Bike Number: {{book_servicing.bike_number}}<br/>
                 Service Station: {{booking_ss.name}}<br/>
-                Preferred Servicing Date: {{book_servicing.date}}<br/>
-                Servicing Mode: {{book_servicing.free_mode}}<br/>
+                Preferred Servicing Date: {{book_servicing.booking_date}}<br/>
+                Servicing Mode: {{book_servicing.is_free_service}}<br/>
+                Regular Servicing: {{book_servicing.is_regular_service}}<br/>
                 Other Problems: {{book_servicing.customer_notes}} <br/>
 
 
