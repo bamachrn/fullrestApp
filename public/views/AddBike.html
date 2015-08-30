@@ -1,0 +1,31 @@
+<div>
+    <form novalidate>
+        <div ng-show="isMobileEmail" class="animate-show">
+            Vehicle Information
+            <input type="text" ng-model="new_bike.brand_id" ng-change="getBikeCompany()"/><br/>
+            e.g. Bajaj, Honda, TVS etc<br/>
+            <input type="text" ng-model="new_bike.model_name" ng-change="getBikeModel()"/><br/>
+            e.g. Pulsar 220, Activa 3g<br/>
+            <input type="text" ng-model="new_bike.bike_number"/><br/>
+            e.g. MH 12 MC 0219<br/>
+            Make Year: <input type="text" ng-model="new_bike.purchase_year"/><br/>
+            <input type="text" ng-model="new_bike.puc_date"/><br/>
+            <div class="row" ng-controller="datePickerCtrl">
+                <div class="col-md-6">
+                    <p class="input-group">
+                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="new_bike.puc_date" is-open="opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+            </div> Last PUC date
+            <br/>
+            <input type="text" ng-model="new_bike.should_remind_puc"/><br/>
+            <input type="text" ng-model="new_bike.insurance_expiry"/><br/>
+            <input type="text" ng-model="new_bike.should_remind_insurance"/><br/>
+            <input type="submit" ng-click="addBike(book_servicing)" value="Book Servicing"/>
+            <input type="button" ng-click="backToSource()" value="Back"/>
+        <div>
+    </form>
+</div>

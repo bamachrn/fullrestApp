@@ -1,5 +1,5 @@
-var bsControllers = angular.module('bookServiceControllers',[]);
-bsControllers.controller('bsInputCtrl',
+var abControllers = angular.module('addBikeControllers',[]);
+abControllers.controller('addBikeCtrl',
     ['$scope','$http','$routeParams',
     function($scope,$http,$routeParams){
        
@@ -28,39 +28,12 @@ bsControllers.controller('bsInputCtrl',
             })
         }
         
-        $http.get('/BikeBrands').success(function(bike_brands){
-            bike_brands.splice(0,1);
-            $scope.bike_brands = bike_brands;
-            $scope.bike_brand_selected = bike_brands[0];
-        });
-
         $scope.isMobileEmail=true;
-        //$scope.isSearchEmail=false;
+        $scope.isSearchEmail=false;
 
         $scope.selectedSS = function(service_station){
             $scope.ss_id = service_station.ss_id;
-            $scope.booking_ss = service_station;
-            $scope.getBikeBrands(service_station.brand_id); 
-        }
-
-        $scope.getBikeBrands=function(brand_id)
-        {
-            if(brand_id==="0")
-            {
-                $http.get('/BikeBrands').success(function(bike_brands){
-                    bike_brands.splice(0,1);
-                    $scope.bike_brands = bike_brands;
-                    $scope.bike_brand_selected = bike_brands[0];
-                });
-            }
-            else
-            {
-                $http.get('/BikeBrands/'+brand_id).success(function(bike_brand){
-                    $scope.bike_brands=[];
-                    $scope.bike_brands.push(bike_brand);
-                    $scope.bike_brand_selected=bike_brand;
-                });
-            }
+            $scope.booking_ss=service_station;
         }
         
         //check the user is existing or not if present then provide login page
@@ -96,7 +69,6 @@ bsControllers.controller('bsInputCtrl',
                 $scope.isMobileEmail=false;
                 $scope.isBikeDetails=false;
                 $scope.isAddressDetails=false;
-                $scope.shouldEditDetails=false;
                 $scope.isSummary=true;
             }
             //allow three times wrong password on fourth time
@@ -124,7 +96,6 @@ bsControllers.controller('bsInputCtrl',
             $scope.isMobileEmail=false;
             $scope.isBikeDetails=true;
             $scope.isAddressDetails=false;
-            $scope.shouldEditDetails=false;
             $scope.isSummary=false;
         }
 
@@ -137,7 +108,6 @@ bsControllers.controller('bsInputCtrl',
             $scope.isMobileEmail=false;
             $scope.isBikeDetails=true;
             $scope.isAddressDetails=false;
-            $scope.shouldEditDetails=false;
             $scope.isSummary=false;
         }
 
@@ -147,7 +117,6 @@ bsControllers.controller('bsInputCtrl',
             $scope.isMobileEmail=false;
             $scope.isBikeDetails=false;
             $scope.isAddressDetails=true;
-            $scope.shouldEditDetails=false;
             $scope.isSummary=false;
         }
         //back to bike details part
@@ -156,7 +125,6 @@ bsControllers.controller('bsInputCtrl',
             $scope.isMobileEmail=false;
             $scope.isBikeDetails=true;
             $scope.isAddressDetails=false;
-            $scope.shouldEditDetails=false;
             $scope.isSummary=false;
         }
         //show the summarize view
@@ -165,7 +133,6 @@ bsControllers.controller('bsInputCtrl',
             $scope.isMobileEmail=false;
             $scope.isBikeDetails=false;
             $scope.isAddressDetails=false;
-            $scope.shouldEditDetails=false;
             $scope.isSummary=true; 
         }
         //back to address view
@@ -174,7 +141,6 @@ bsControllers.controller('bsInputCtrl',
             $scope.isMobileEmail=false;
             $scope.isBikeDetails=false;
             $scope.isAddressDetails=true;
-            $scope.shouldEditDetails=false;
             $scope.isSummary=false;
         }
 
@@ -208,16 +174,6 @@ bsControllers.controller('bsInputCtrl',
             });
 
             customerUpdated.then(function(){
-                var customer_bike={
-                    customer_id: $scope.customer_id,
-                    brand_id: $scope.bike_brand_selected.brand_id,
-                    model_name: $scope.book_servicing.model_name,
-                    bike_number: $scope.book_servicing.bike_number
-                }
-            });
-            var customerBikeUpdated = $http.post('/CustomerBikes',)
-
-            customerBikeUpdated.then(function(){
                 book_servicing.customer_id = $scope.customer_id;
                 console.log(book_servicing);
                 $http.post('/ServiceBookings',book_servicing).success(function(){
@@ -234,8 +190,5 @@ bsControllers.controller('bsInputCtrl',
             $scope.bike_id = bike.bike_id;
             $scope.bike_name = bike.name;
             $scope.bike_number = bike.number;
-        }
-        $scope.addBike = function(){
-            $scope.wantsToAddBike=true;
         }
 }]);

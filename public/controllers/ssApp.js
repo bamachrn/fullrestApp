@@ -2,8 +2,9 @@ var ssApp = angular.module('ssApp',[
     'ngRoute',
     'smart-table',
     'ui.bootstrap',
-    'ssControllers',
-    'bsControllers',
+    'serviceStationControllers',
+    'bookServiceControllers',
+    'addBikeControllers',
     'locationOperations'
 ]);
 ssApp.config(['$locationProvider','$routeProvider','$httpProvider',
@@ -25,6 +26,10 @@ ssApp.config(['$locationProvider','$routeProvider','$httpProvider',
             when('/BookService/:ss_id',{
                 templateUrl: 'views/BookServicing.html',
                 controller: 'bsInputCtrl'
+            }).
+            when('/AddBike',{
+                templateUrl: 'views/AddBike.html',
+                controller: 'addBikeCtrl'
             }).
             otherwise({
                 redirectTo: '/SearchServiceStations'

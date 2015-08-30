@@ -1,0 +1,32 @@
+{
+   "brands":[
+        {
+            "brand_id":"0",
+            "name":"All"
+        },
+        {
+            "brand_id":"1",
+            "name":"Honda"
+        },
+        {
+            "brand_id":"2",
+            "name":"Hero"
+        },
+        {
+            "brand_id":"3",
+            "name":"Bajaj"
+        },
+        {
+            "brand_id":"4",
+            "name":"Yamaha"
+        },
+        {
+            "brand_id":"5",
+            "name":"Suzuki"
+        },
+        {
+            "brand_id":"6",
+            "name":"Mahindra"
+        }
+   ]
+}

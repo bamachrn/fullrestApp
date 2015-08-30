@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var jsonQuery = require('json-query');
-var extend = require('node.extend');
 
 module.exports = function (app,sequelize) 
 {
@@ -41,14 +40,15 @@ module.exports = function (app,sequelize)
                //getting the service stations json object and removing the sequelize decripition details
                var ss_string = JSON.parse(JSON.stringify(service_stations));
 
-               //getting area details from server local file system
-               var areadata=JSON.parse(fs.readFileSync(__dirname+'/areas.json','utf-8'));
+               var areadata = JSON.parse(fs.readFileSync(__dirname+'/../database/areas.json','utf-8')); 
                
                //updating service stations json object for adding the details from id (like area details for area_id)
                for(var i=0;i<service_stations.length;i++)
                {   
                     //adding area details for the specified area_id
-                    ss_string[i].area = getItemByID(areadata,service_stations[i].area_id);
+                    ss_string[i].area = jsonQuery('areas[id='+service_stations[i].area_id+']',{
+                        data:areadata
+                    }).value;
                 }
               
                 //send the modified json obejct in response
@@ -58,14 +58,6 @@ module.exports = function (app,sequelize)
                 res.send(err);
             });
        });
-    function getItemByID(searchObject,search_id)
-    {
-       return jsonQuery('areas[id='+search_id+']',{
-            //here data means the object where query has to be run.
-            //here areas id is being queried in areadata json object
-            data: searchObject
-        }).value;
-    }
     router.route('/:service_station_id')
         .get(function(req,res){
             app.models.ServiceStations.find({

@@ -1,12 +1,14 @@
 <div>
     <form novalidate>
         <div ng-show="isMobileEmail" class="animate-show">
-            Mobile <input type="text" ng-model="book_servicing.mobile"/><br/>
             Email <input type="text" ng-model="book_servicing.email"/><br/>
-            <input type="button" ng-click="searchMobileEmail()" value="Check User" ng-disabled="isSearchEmail"/><br>
+            Mobile <input type="text" ng-model="book_servicing.mobile" ng-focus="searchMobileEmail()"/><br/>
+            <!--input type="button" ng-click="searchMobileEmail()" value="Check User" ng-disabled="isSearchEmail"/><br-->
             <div ng-show="isExistingUser" class="animate-show">
                 Enter password: <input type="password" ng-model="exist_user.password"><br/>
                 <input type="button" ng-click="loginAutoFill()" value="Auto fill Details"/><br>
+            </div>
+            <div ng-show="shouldNoFill">
                 <input type="button" ng-click="proceedNoFill()" value="Proceed with no fill"/><br>
             </div>
             <div ng-show="isNewUser" class="animate-show">
@@ -17,14 +19,11 @@
         </div>
  
         <div class="animate-show" ng-show="isBikeDetails">
-            Select Bike: 
-            <div ng-repeate="bike in bikes">
-                <input type="button" ng-click="selectBike(bike.bike_id)" value="bike.number"/> 
-            </div>
-            <br/>
-            Bike Name<input type="text" ng-model="book_servicing.bike_name"/><br/>
-            Bike Number<input type="text" ng-model="book_servicing.bike_number"/><br/>
-            Service Station<select ng-options="service_station.name for service_station in service_stations" ng-model="booking_ss" ng-change="selectedSS(book_servicing.service_station)" /><br/>
+            
+            Service Station: <select ng-options="service_station.name for service_station in service_stations" ng-model="booking_ss" ng-change="selectedSS(booking_ss)" /><br/>
+            Bike Brand:  <select ng-options="bike_brand.name for bike_brand in bike_brands" ng-model="bike_brand_selected" /><br/>
+            Bike Name: <input type="text" ng-model="book_servicing.model_name"/><br/>
+            Bike Number: <input type="text" ng-model="book_servicing.bike_number"/><br/>
             Preferred Servicing Date:
             <div class="row" ng-controller="datePickerCtrl">
                 <div class="col-md-6">
@@ -61,6 +60,25 @@
             <input type="button" ng-click="backToBikeDetails()" value="Back to Bike Details"/>
             <input type="button" ng-click="enterAddress()" value="View Booking Summary"/>
         </div>
+        
+        <!-- allow user to edit details if there is some thing he/she wants to
+        update -->
+
+        <div ng-show="shouldEditDetails" class="animate-show">
+            <div ng-show="isBikeExists" class="animate-show">
+                Select Bike: 
+                <div ng-repeate="bike in bikes">
+                    <input type="button" ng-click="selectBike(bike.bike_id)" value="bike.number"/> 
+                 </div>
+                <button type="button" class='btn btn-link' ng-click="addBike()">Add Bike</button>
+                <br/>
+                <div ng-show="wantsToAddBike" class="annimate-show">
+                    <div class="annimate-show" ng-include="'views/AddBike.html'"/>
+                </div>
+            </div>
+        </div>
+
+        <!--show summary with the final changes -->
         <div class="animate-show" ng-show="isSummary">
             Address Details:<br/>
                 Name: {{book_servicing.first_name}} {{book_servicing.last_name}} <br/>

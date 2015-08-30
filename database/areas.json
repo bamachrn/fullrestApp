@@ -1,14 +1,13 @@
 {
-    {
-        "id":"1",
-        "city_id":"1",
-        "name":"dighi",
-        "pin":"411015"
-    },
-    {
-        "id":"2",
-        "city_id":"1",
-        "name":"Wadgaon",
-        "pin":"411041"
-    }
+    "areas":[
+        {"id":"1",
+            "name":"dighi",
+            "pin":"411015"
+        },
+        {
+            "id":"2",
+            "name":"Wadgaon",
+            "pin":"411041"
+        }
+    ]
 }

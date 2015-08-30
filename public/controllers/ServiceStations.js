@@ -1,4 +1,4 @@
-var ssControllers = angular.module('ssControllers',[]);
+var ssControllers = angular.module('serviceStationControllers',[]);
 ssControllers.controller('ssListCtrl',
     ['$scope','$http','locationService','$location',
     function($scope,$http,locationService,$location){

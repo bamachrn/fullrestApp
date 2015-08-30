@@ -1,7 +1,7 @@
 //var mongoose = require('mongoose');
 var Sequelize = require('sequelize');
 
-//Create the CustomerSchema
+//Create the CustomerBikesSchema
 module.exports = function(sequelize){
     var customer_bikes = sequelize.define('customer_bikes', {
         bike_id:{
@@ -14,7 +14,6 @@ module.exports = function(sequelize){
         model_name: Sequelize.STRING,
         bike_number: Sequelize.STRING,
         purchase_year: Sequelize.STRING,
-        purchase_date: Sequelize.DATE,
         photo_path: Sequelize.STRING,
         puc_date: Sequelize.DATE,
         should_remind_puc: Sequelize.INTEGER,
