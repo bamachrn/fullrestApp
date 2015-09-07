@@ -20,10 +20,10 @@
  
         <div class="animate-show" ng-show="isBikeDetails">
             
-            Service Station: <select ng-options="service_station.name for service_station in service_stations" ng-model="booking_ss" ng-change="selectedSS(booking_ss)" /><br/>
             Bike Brand:  <select ng-options="bike_brand.name for bike_brand in bike_brands" ng-model="bike_brand_selected" /><br/>
             Bike Name: <input type="text" ng-model="book_servicing.model_name"/><br/>
             Bike Number: <input type="text" ng-model="book_servicing.bike_number"/><br/>
+            Service Station: <select ng-options="service_station.name for service_station in service_stations" ng-model="booking_ss" ng-change="selectedSS(booking_ss)" /><br/>
             Preferred Servicing Date:
             <div class="row" ng-controller="datePickerCtrl">
                 <div class="col-md-6">
@@ -88,7 +88,7 @@
                 Pincode: {{book_servicing.pincode}}<br/>
 
             Servicing Details:<br/>
-                Bike Name: {{book_servicing.bike_name}}<br/>
+                Bike Name: {{book_servicing.model_name}}<br/>
                 Bike Number: {{book_servicing.bike_number}}<br/>
                 Service Station: {{booking_ss.name}}<br/>
                 Preferred Servicing Date: {{book_servicing.booking_date}}<br/>

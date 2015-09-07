@@ -72,6 +72,7 @@ bsControllers.controller('bsInputCtrl',
                 if(data)
                 {
                     $scope.customer = data;
+                    $scope.customer_id = data.customer_id;
                     $scope.isExistingUser=true;
                     $scope.shouldNoFill=false;
                     $scope.isNewUser=false;
@@ -182,52 +183,92 @@ bsControllers.controller('bsInputCtrl',
          *This function is for booking service, if the customer is an existing one
          *data will go only to book service post, if customer is new customer details
          *will be inserted to customer table. newly generated customer id will be used
-         *for booking the new service
+         *for booking the new service. if the customer is entering new bike details 
+         *data will be added to bike details and use that bike_id for bookings table
          * */
         $scope.bookService = function(book_servicing)
         {
             book_servicing.ss_id=$scope.booking_ss.ss_id;
-           /* book_servicing.bike_id = $scope.bike_id;
-            book_servicing.bike_name = $scope.bike_name;
-            book_servicing.bike_number = $scope.bike_number;
-           */ 
-            var customer ={
-                mobile:$scope.book_servicing.mobile,
-                email:$scope.book_servicing.email,
-                first_name:$scope.book_servicing.first_name,
-                last_name:$scope.book_servicing.last_name,
-                gender:1,//$scope.book_servicing.gender,
-                password:$scope.new_password
-            }
             
-            /*console.log(customer);
-            console.log(book_servicing);*/
-            var customerUpdated = $http.post('/Customers',customer)
-            .success(function(customer){
-                $scope.customer_id = customer.customer_id;
-            });
-
-            customerUpdated.then(function(){
-                var customer_bike={
-                    customer_id: $scope.customer_id,
-                    brand_id: $scope.bike_brand_selected.brand_id,
-                    model_name: $scope.book_servicing.model_name,
-                    bike_number: $scope.book_servicing.bike_number
-                }
-            });
-            var customerBikeUpdated = $http.post('/CustomerBikes',)
-
-            customerBikeUpdated.then(function(){
-                book_servicing.customer_id = $scope.customer_id;
-                console.log(book_servicing);
-                $http.post('/ServiceBookings',book_servicing).success(function(){
-                    console.log("data insterted"+book_servicing);
-                })
-                .error(function(){
-                    console.log("could not insert data"+book_servicing);
+            if($scope.customer_id === undefined){
+                var customerUpdated = addNewCustomer();
+                var customerBikeUpdated = customerUpdated.then(function(){
+                    return addNewBike()
                 });
-            });
+                customerBikeUpdated.then(function(){
+                    return addNewBooking(book_servicing)
+                });
+            }
+            else {
+                if($scope.bike_id === undefined){
+                    var customerBikeUpdated = addNewBike();
+                    customerBikeUpdated.then(function(){
+                        return addNewBooking(book_servicing);
+                    });
+                }
+                else{
+                     book_servicing.bike_id = $scope.bike_id;
+                     book_servicing.bike_name = $scope.bike_name;
+                     book_servicing.bike_number = $scope.bike_number;
+                     addNewBooking(book_servicing);
+                }
+            }
+        }
 
+        /**
+         *if the customer is new we need to to get him registered first to assign
+         *the customer a customer id, this function is for adding a new customer 
+         * to database and returns newly generated customer id.
+         * **/
+        addNewCustomer = function()
+        {
+
+            var customer ={
+                 mobile:$scope.book_servicing.mobile,
+                 email:$scope.book_servicing.email,
+                 first_name:$scope.book_servicing.first_name,
+                 last_name:$scope.book_servicing.last_name,
+                 gender:1,//$scope.book_servicing.gender,
+                 password:$scope.new_password
+            }
+        
+            /*console.log(customer);
+            *console.log(book_servicing);*/
+            return $http.post('/Customers',customer)
+            .success(function(customer){
+                 $scope.customer_id = customer.customer_id;
+             });
+        }
+        /**
+         *if we are adding a new bike we need to add the details to database
+         * and get the bike id, this function is for inserting data to customer_bikes
+         * and return bike_id
+         * */
+        addNewBike = function(){
+             var customer_bike={
+                customer_id: $scope.customer_id,
+                brand_id: $scope.bike_brand_selected.brand_id,
+                model_name: $scope.book_servicing.model_name,
+                bike_number: $scope.book_servicing.bike_number
+            }
+            return $http.post('/CustomerBikes',customer_bike)
+                .success(function(customer_bike){
+                $scope.bike_id = customer_bike.bike_id;
+            });
+        }
+        /**
+         *this function is for inserting all the booking data to service _bookins table
+         * **/
+        addNewBooking = function(book_servicing){
+            book_servicing.customer_id = $scope.customer_id;
+            console.log(book_servicing);
+            $http.post('/ServiceBookings',book_servicing)
+            .success(function(){
+                console.log("data insterted"+book_servicing);
+            })
+            .error(function(){
+                console.log("could not insert data"+book_servicing);
+            });
         }
         $scope.selectBike = function(bike)
         {

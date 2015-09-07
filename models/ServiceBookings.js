@@ -20,7 +20,7 @@ module.exports = function (sequelize) {
         ss_id: Sequelize.STRING,
         is_free_service: Sequelize.INTEGER,
         customer_notes: Sequelize.TEXT,
-        coupon_id: Sequelize.INTEGER,
+        coupon_id: Sequelize.STRING,
         bike_running_km: Sequelize.INTEGER,
         is_regular_service: Sequelize.INTEGER,
         service_rating: Sequelize.FLOAT,
