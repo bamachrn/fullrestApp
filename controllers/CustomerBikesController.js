@@ -100,7 +100,19 @@ module.exports = function (app,sequelize)
                 res.send(err);
             });
         });
-       
+    router.route('/customer/:customer_id')
+        .get(function(req,res){
+            app.models.CustomerBikes.find({
+                where: {customer_id:req.params.customer_id}
+            })
+            .then(function(customer_bikes){
+                res.json(customer_bikes);
+            })
+            .catch(function(err){
+                res.send(err);
+            });
+        });
+
     router.route('/brands')
         .get(function(req,res){
             var branddata=JSON.parse(fs.readFileSync(__dirname+'/brands.json','utf-8'));

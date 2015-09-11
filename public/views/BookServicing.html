@@ -58,24 +58,60 @@
             Area <input type="text" ng-model="book_servicing.area_id"/><br/>
             Pincode <input type="text" ng-model="book_servicing.pincode"/><br/>
             <input type="button" ng-click="backToBikeDetails()" value="Back to Bike Details"/>
-            <input type="button" ng-click="enterAddress()" value="View Booking Summary"/>
+            <input type="button" ng-click="viewSummary()" value="View Booking Summary"/>
         </div>
         
         <!-- allow user to edit details if there is some thing he/she wants to
         update -->
 
         <div ng-show="shouldEditDetails" class="animate-show">
-            <div ng-show="isBikeExists" class="animate-show">
-                Select Bike: 
-                <div ng-repeate="bike in bikes">
-                    <input type="button" ng-click="selectBike(bike.bike_id)" value="bike.number"/> 
-                 </div>
-                <button type="button" class='btn btn-link' ng-click="addBike()">Add Bike</button>
-                <br/>
-                <div ng-show="wantsToAddBike" class="annimate-show">
-                    <div class="annimate-show" ng-include="'views/AddBike.html'"/>
+            Select Bike: 
+            <div ng-repeat="bike in bikes">
+                <input type="button" ng-click="selectBike(bike)" ng-value="bike.bike_number"/> 
+            </div>
+            <button type="button" class='btn btn-link' ng-click="addBike()">Add Bike</button>
+            <br/>
+            <div ng-show="wantsToAddBike" class="animate-show">
+                Bike Brand:  <select ng-options="bike_brand.name for bike_brand in bike_brands" ng-model="bike_brand_selected" /><br/>
+                Bike Name: <input type="text" ng-model="book_servicing.model_name"/><br/>
+                Bike Number: <input type="text" ng-model="book_servicing.bike_number"/><br/>
+            </div>
+
+            Mobile: <input type="text" ng-model="book_servicing.mobile"/><br/>
+            Email: <input type="text" ng-model="book_servicing.email"/><br/>
+            First Name <input type="text" ng-model="book_servicing.first_name"/><br/>
+            Last Name <input type="text" ng-model="book_servicing.last_name"/><br/>
+            Pick up Address: <input type="area" ng-model="book_servicing.address"/><br/>
+            Area <input type="text" ng-model="book_servicing.area_id"/><br/>
+            Pincode <input type="text" ng-model="book_servicing.pincode"/><br/>
+            
+            Service Station: <select ng-options="service_station.name for service_station in service_stations" ng-model="booking_ss" ng-change="selectedSS(booking_ss)" /><br/>
+            Preferred Servicing Date:
+            <div class="row" ng-controller="datePickerCtrl">
+                <div class="col-md-6">
+                    <p class="input-group">
+                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="book_servicing.booking_date" is-open="opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
                 </div>
             </div>
+            Free Servicing: 
+                <div ng-controller="buttonsCtrl" class="btn-group">
+                    <label class="btn btn-primary" ng-model="book_servicing.is_free_service" btn-radio="'1'">Free</label>
+                    <label class="btn btn-primary" ng-model="book_servicing.is_free_service" btn-radio="'0'">Paid</label>
+                </div><br/>
+            Regular Servicing?: 
+                <div ng-controller="buttonsCtrl" class="btn-group">
+                    <label class="btn btn-primary" ng-model="book_servicing.is_regular_service" btn-radio="'1'">Yes</label>
+                    <label class="btn btn-primary" ng-model="book_servicing.is_regular_service" btn-radio="'0'">No</label>
+                </div><br/>
+            Other Problems: <input type="area" ng-model="book_servicing.customer_notes"/><br/>
+            Coupon ID: <input type="text" ng-model="book_servicing.coupon_id" /><br/>
+
+            <input type="button" ng-click="viewSummary()" value="View Booking Summary"/><br>
+            
         </div>
 
         <!--show summary with the final changes -->

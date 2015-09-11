@@ -97,8 +97,10 @@ bsControllers.controller('bsInputCtrl',
                 $scope.isMobileEmail=false;
                 $scope.isBikeDetails=false;
                 $scope.isAddressDetails=false;
-                $scope.shouldEditDetails=false;
-                $scope.isSummary=true;
+                $scope.shouldEditDetails=true;
+                $scope.isSummary=false;
+                $scope.getBikes($scope.customer.customer_id);
+                $scope.setCustomerData();
             }
             //allow three times wrong password on fourth time
             //ask whether to proceed without auto fillup
@@ -161,7 +163,7 @@ bsControllers.controller('bsInputCtrl',
             $scope.isSummary=false;
         }
         //show the summarize view
-        $scope.enterAddress = function()
+        $scope.viewSummary = function()
         {
             $scope.isMobileEmail=false;
             $scope.isBikeDetails=false;
@@ -272,11 +274,36 @@ bsControllers.controller('bsInputCtrl',
         }
         $scope.selectBike = function(bike)
         {
-            $scope.bike_id = bike.bike_id;
-            $scope.bike_name = bike.name;
-            $scope.bike_number = bike.number;
+            $scope.book_servicing.bike_id = bike.bike_id;
+            $scope.book_servicing.model_name = bike.model_name;
+            $scope.book_servicing.bike_number = bike.bike_number;
         }
         $scope.addBike = function(){
-            $scope.wantsToAddBike=true;
+            if($scope.wantsToAddBike)
+                $scope.wantsToAddBike=false;
+            else
+                $scope.wantsToAddBike=true;
+        }
+        $scope.getBikes = function(customer_id){
+            $http.get('/CustomerBikes/customer/'+customer_id)
+            .success(function(customer_bikes){
+                $scope.bikes = [];
+                /*angular.forEach(customer_bikes,function(bike)
+                {
+                    $scope.bikes.push(bike);
+                    console.log("Bikes got are: "+bike.model_name);
+                });*/
+                $scope.bikes.push(customer_bikes);
+                //console.log($scope.bikes);
+            })
+            .error(function(err){
+                console.log("could not get bikes for customer: "+customer_id);
+            });
+        }
+        $scope.setCustomerData = function()
+        {
+            $scope.book_servicing.first_name = $scope.customer.first_name;
+            $scope.book_servicing.last_name = $scope.customer.last_name;
+            $scope.book_servicing.address = $scope.customer.address;
         }
 }]);
